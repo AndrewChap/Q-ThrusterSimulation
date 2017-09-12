@@ -1,0 +1,89 @@
+0.1397		://R1, big radius of cone, in meters please (radius at z = 0)
+0.0762		://R2, small radius of cone, in meters please (radius at z = L)
+0.2286		://LENGTH, length of cone, in meters please
+0.2794		://BOX_LX, bounding x size for simulation box, in meters please
+0.2794		://BOX_LY, bounding x size for simulation box, in meters please
+0.2286		://BOX_LZ, bounding x size for simulation box, in meters please
+39.37008	://COMSOL_CONV, converts inches to meters for COMSOL E & B files
+0.0127		://GRIDL, grid spacing in meters, WHICH MUST MATCH COMSOL FILE!!!!
+0			://CELL_LAYERS - number of cell shells to be used to calculate detailed particle-particle interaction
+1			://INTERACTION - 1 will calculate particle-particle interaction, 0 will not
+1			://REPLACE - 1 will replace particles at boundary, 0 will not
+72			://COMSOL_DIVISIONS	- number of divisions of 360 degrees, COMSOL can provide E & B field files at certain phase increments
+4563		://COMSOL_ROWS - number of rows of E & B fields for COMSOL file
+1E-8		://WRITE_RATE - Simulation time in between plots (seconds)
+100			://DT_PER_PERIOD - number of time-steps per Period of oscillation
+1			://CYLINDER - 1 if model is simple cylinder or cone, 2 for complex cylinder
+0.00001		://THRESH - minimum spacing for electrostatic calculation for particle-particle interaction (m)
+1			://PARTICLE_PACKING - set to 10 if you want 10^3 particles per differential element box
+5E-6		://END_TIME - Ending time (in seconds)
+15			://REL_MASS - relativistic mass factor of fermions
+1.5			://SCALING - Increase power by this scale factor, E & B will be scaled by (SCALING)^0.5
+1.949069E9	://FREQUENCY - drive frequency in Hz
+9			://C_NUMBER - number of cylinder filters for complex cylinder filtering of particles
+1			://Loading_Flag - 0 for old way of loading, 1 for Drew's new way (7/6/2015)
+1			://Random_Flag - 0 for non-random loading, 1 for random loading (7/6/2015) if Loading_Flag == 1 then it doesn't matter what Random_Flag is
+0			://LONGRANGE - 1 will calculate long-range interactions by summing cell values, 0 will not (7/6/2015)
+1           ://Macro_flag - 1 will automatically calculate a macroparticle weight based on the input density and the number of particles
+1E6			://density_init - Initial density, only relevant if (MACRO == 1 && CONSTIN == 0)
+1000 		://np_init - initial number of macroparticles (if Macro_flag == 0 then this is the initial number of real particles as well)
+1			://CONSTIN - CONSTant INput of particles (rather than particles getting replaced in middle) this also means that particles at the boundary are killed rather than replaced
+3E10		://CPPS - Computational particles per second (only matters if Macro_flag == 1 && CONSTIN == 1)
+1e19		://SOURCE - particle source in #/m^3/s (only matters if CONSTIN == 1)
+4	 		://NP_FACTOR - Factor by which you will allocate memory for particles per branch based on the average number of particles per branch
+1			://WRITE_FORCECURVES - output total force at every time-step
+0			://WRITE_XYZ - write output data to a .xyz file suitable for VMD
+0			://WRITE_MATLAB - write output data to a .txt file suitable for Matlab
+1			://WRITE_VTK - write output data to a .vtk file suitable for ParaView
+23			://nxB - number of branch divisions in X
+23			://nyB - number of branch divisions in Y
+19			://nzB - number of branch divisions in Z
+1			://METHOD - particle moving method.  0: Original method.  1: Leapfrog from https://goo.gl/DLQAv9   2: Wikipedia Leapfrog  3. Verlet integrator
+1			://DT_SCAN - Number of dt's to check  (for now, just scans integer multiples of DT_PER_DPHASE)
+0.1			://DT_FACTOR_MIN - Low dt factor (IRRELEVENT FOR NOW, as we are limited to a dt that fits in nicely with comsol)
+10			://DT_FACTOR_MAX - High dt factor (IRRELEVENT FOR NOW, as we are limited to a dt that fits in nicely with comsol)
+0			://WRITE_EB
+0			://BORNWITHVELOCITY
+0			://RANDOMVELOCITY
+4			://NUMSCANS
+1			://CULL_OUTSIDE - Deletes branches that are wholly outside the cone and doesn't use threads to compute on them
+500			://pLimit - max particles per branch
+300			://BRANCH_BUFFER - how many particles can be stored in the buffer array for each branch (used when transferring particles between branches)
+0.00000			://Z[0][0] in meters
+0.05715			://Z[0][1] in meters
+0.05715			://Z[1][0] in meters
+0.1016			://Z[1][1] in meters
+0.1016			://Z[2][0] in meters
+0.130302		://Z[2][1] in meters
+0.130302		://Z[3][0] in meters
+0.155702		://Z[3][1] in meters
+0.155702		://Z[4][0] in meters
+0.168402		://Z[4][1] in meters
+0.168402		://Z[5][0] in meters
+0.181102		://Z[5][1] in meters
+0.181102		://Z[6][0] in meters
+0.193802		://Z[6][1] in meters
+0.193802		://Z[7][0] in meters
+0.219202		://Z[7][1] in meters
+0.219202		://Z[8][0] in meters
+0.270002		://Z[8][1] in meters
+0.0127			://R[0][0] in meters
+0.0127			://R[0][1] in meters
+0.014351		://R[1][0] in meters
+0.014351		://R[1][1] in meters
+0.014351		://R[2][0] in meters
+0.014351		://R[2][1] in meters
+0.014351		://R[3][0] in meters
+0.03175			://R[3][1] in meters
+0.12446			://R[4][0] in meters
+0.13716			://R[4][1] in meters
+0.13716			://R[5][0] in meters
+0.13716			://R[5][1] in meters
+0.13716			://R[6][0] in meters
+0.12446			://R[6][1] in meters
+0.0381			://R[7][0] in meters
+0.014351		://R[7][1] in meters
+0.014351		://R[8][0] in meters
+0.014351		://R[8][1] in meters
+
+
