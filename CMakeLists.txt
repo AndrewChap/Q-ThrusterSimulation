@@ -4,7 +4,7 @@ project(particle_branch_11 LANGUAGES CXX CUDA)
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(PROJECT_SOURCE_DIR "particle_branch_11")
+set(PROJECT_SOURCE_DIR "src")
 
 include_directories(
     # Add CUDA toolkit include directories
