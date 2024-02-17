@@ -1,5 +1,9 @@
 # Q-ThrusterSimulation
-This simulation is similar to a particle-in-cell simulation and is parallelized for the GPU by cell (referred to in the code as "branches").  Particles are moved in the ParticleMoverGPU function.  Particles are transferred efficiently between cells through the functions "FillGapsGPU" and "TransferParticlesGPU".  GPU memory is managed so that memory coalescense is maximized, resulting in the minimum required calls to global GPU memory.  See QThrusterMemoryOrganization.pptx for more information (contains ppt animations.)
+This simulation is similar to a particle-in-cell simulation and is parallelized for the GPU by cell (referred to in the code as "branches").
+Particles are moved in the ParticleMoverGPU function.  
+Particles are transferred efficiently between cells through the functions "FillGapsGPU" and "TransferParticlesGPU". 
+GPU memory is managed so that memory coalescense is maximized, resulting in the minimum required calls to global GPU memory.
+See [QThrusterMemoryOrganization.md](QThrusterMemoryOrganization.md) or QThrusterMemoryOrganization.pptx for more information (contains ppt animations.)
 
 # Dependencies
 This has been tested on Linux (Debian 11 with an Nvidia).
