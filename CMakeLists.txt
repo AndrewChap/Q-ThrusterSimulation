@@ -65,5 +65,7 @@ target_link_libraries(particle_branch_11
 set_target_properties(particle_branch_11 PROPERTIES
                       CUDA_SEPARABLE_COMPILATION ON)
 
-# Copy a text file to the build directory
+# Copy the configuration text file to the build directory
 configure_file(${PROJECT_SOURCE_DIR}/input_deck_2_7.txt ${CMAKE_CURRENT_BINARY_DIR}/input_deck_2_7.txt COPYONLY)
+# Copy the COMSOL field files to the build directory
+file(COPY ${PROJECT_SOURCE_DIR}/complex DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

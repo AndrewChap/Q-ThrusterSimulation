@@ -208,7 +208,7 @@ int main(void){
 	int BRANCH_BUFFER = (int)A[50];
 	printf("BRANCH_BUFFER = %i \n", BRANCH_BUFFER);
 
-	static const int print_gots = 0;						// turn this on print a bunch of location identifiers throughout the code, useful for debugging
+	static const int print_gots = 1;						// turn this on print a bunch of location identifiers throughout the code, useful for debugging
 
 	int NUMINPUTS = 51;										// number of inputs above (including input zero)
 
@@ -435,6 +435,8 @@ int main(void){
 	float distsq;
 	float px, py, pz, tx, ty, tz;
 	while (n < np_init / 2){
+        //printf("n: %i, np_init/2: %d\n", n, np_init / 2);
+
 		// Create random position and velocity for particle n
 		pox[n] = (float)rand() / (float)RAND_MAX * (boxdim.xl) + boxdim.xmin;
 		poy[n] = (float)rand() / (float)RAND_MAX * (boxdim.yl) + boxdim.ymin;
@@ -460,7 +462,7 @@ int main(void){
 			continue;
 		}
 
-		//printf("n = %i success\n",n);
+		printf("n = %i success\n",n);
 
 		vox[n] = 0;
 		voy[n] = 0;
@@ -482,6 +484,8 @@ int main(void){
 		b = bx + by*nxB + bz*nxB*nyB; // assign linear address
 		int ba = boxIndexMapper[b];		// map address to the address of the culled boxes
 
+        printf("ba is: %i\n", ba);
+
 		float q = 1;
 
 		pBA[n] = ba;
@@ -500,6 +504,7 @@ int main(void){
 		poq[n] = 1;						// positron
 		poq[n + np_init / 2] = -1;		// electron
 
+        printf("got to positron assignment...");
 		// now assign positron values to the electron
 		pox[n + np_init / 2] = pox[n];
 		poy[n + np_init / 2] = poy[n];
@@ -510,9 +515,10 @@ int main(void){
 		pBA[n + np_init / 2] = pBA[n];
 		oID[n] = n;
 		oID[n + np_init / 2] = n + np_init / 2;
+        printf("finished positron assignment.\n");
 		n++;
 	}
-
+    printf("finished positron assignment LOOP.\n\n");
 
 	// --------------------------------------------- Put particles into branches -------------------------------------- //
 	float *pbx, *pby, *pbz, *vbx, *vby, *vbz;			// position and velocity pointers for "box-organized" particle data
@@ -531,6 +537,7 @@ int main(void){
 
 	maxpnum = 0;
 	int pnumindex = -1;
+    printf("starting particle branch placement LOOP.\n");
 	for (int n = 0; n < np_init; n++){
 
 		int address = pBA[n] + nB*pnum[pBA[n]];		//memory address of particle.  Shifting by branch shifts by one memory address.  Shifting by particle (within a branch) shifts by nB memory addresses
@@ -556,6 +563,7 @@ int main(void){
 
 	// ------------------------------------------ Create E&B fields -------------------------------------------- //
 
+    printf("Loading E&B Field.\n");
 	float **E_realC, **E_imagC, **B_realC, **B_imagC;
 
 	E_realC = (float**)malloc(COMSOL_ROWS * sizeof(float*));
@@ -576,6 +584,7 @@ int main(void){
 	}
 
 	Load_EB(COMSOL_ROWS, SCALING, COMSOL_CONV, LX, LY, E_realC, E_imagC, B_realC, B_imagC);
+    printf("E&B Field LOADED.\n");
 	
 	/*for (int c = 0; c < 200; c++){
 		printf("x[%04i] = %1.4f\n",c, E_realC[c][0]);
