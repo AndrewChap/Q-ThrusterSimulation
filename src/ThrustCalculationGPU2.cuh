@@ -13,7 +13,7 @@ __global__ void ThrustCalculationGPU2(
 	int nB, int substep, int subflag
 	){
 
-		
+
 	int b = threadIdx.x + blockDim.x * blockIdx.x;		// Branch number
 	float Pxm, Pxp, Pym, Pyp, Pzm, Pzp;
 	while (b < nB){
@@ -34,7 +34,7 @@ __global__ void ThrustCalculationGPU2(
 		Pyp = (Byp != -1)*PressureY[Byp*(Byp != -1)];
 		Pzm = (Bzm != -1)*PressureZ[Bzm*(Bzm != -1)];
 		Pzp = (Bzp != -1)*PressureZ[Bzp*(Bzp != -1)];*/
-		
+
 		if (Bxm[b] != -1) Pxm = pressureX[Bxm[b]]; else Pxm = 0;
 		if (Bxp[b] != -1) Pxp = pressureX[Bxp[b]]; else Pxp = 0;
 		if (Bym[b] != -1) Pym = pressureY[Bym[b]]; else Pym = 0;

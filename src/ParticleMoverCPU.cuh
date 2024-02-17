@@ -78,7 +78,7 @@ void ParticleMoverCPU(
 					rij2i = 1/(drx*drx + dry*dry + drz*drz);	// inverse square
 
 					rij_si = pow(rij2i, 0.5);					// inverse sqrt so we can use it for multiplication rather than division below
-					if (rij_si > inv_thresh) { continue; }		// too close to infinite interaction, so skip this particle 
+					if (rij_si > inv_thresh) { continue; }		// too close to infinite interaction, so skip this particle
 					rij_x = drx * rij_si;						// unit vector direction x
 					rij_y = dry * rij_si;						// unit vector direction y
 					rij_z = drz * rij_si;						// unit vector direction z

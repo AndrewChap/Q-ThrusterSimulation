@@ -36,7 +36,7 @@
 #define CPUtimers	3							// number of timers needed to time CPU functions
 #define GPUtimers	5							// number of timers needed to time GPU functions
 
-#define pi			3.141592653589793			// 
+#define pi			3.141592653589793			//
 #define eps0		8.85418782E-12				// Permittivity of free space
 #define mu0			1.2566370614E-6				// Vacuum permeability; N-s2/C2
 #define QE			1.602176565E-19				// elementary charge (C)
@@ -585,7 +585,7 @@ int main(void){
 
 	Load_EB(COMSOL_ROWS, SCALING, COMSOL_CONV, LX, LY, E_realC, E_imagC, B_realC, B_imagC);
     printf("E&B Field LOADED.\n");
-	
+
 	/*for (int c = 0; c < 200; c++){
 		printf("x[%04i] = %1.4f\n",c, E_realC[c][0]);
 	}
@@ -898,7 +898,7 @@ int main(void){
 	gpuErrchk(cudaMemcpy(dByp, Byp, sizeof(int)*nB, cudaMemcpyHostToDevice));
 	gpuErrchk(cudaMemcpy(dBzm, Bzm, sizeof(int)*nB, cudaMemcpyHostToDevice));
 	gpuErrchk(cudaMemcpy(dBzp, Bzp, sizeof(int)*nB, cudaMemcpyHostToDevice));
-	
+
 	float *dpressureX, *dpressureY, *dpressureZ;
 	gpuErrchk(cudaMalloc((void**)&dpressureX, sizeof(float)*nB));
 	gpuErrchk(cudaMalloc((void**)&dpressureY, sizeof(float)*nB));
@@ -1023,7 +1023,7 @@ int main(void){
 	*/
 	//exit(0);
 	int pnumNC;
-	
+
 	clock_t clockFrame = clock();
 	float timeFrame = 0, timeAvg = 0, timeTotal = 0;
 
@@ -1077,7 +1077,7 @@ int main(void){
 
 	gpuErrchk(cudaMemcpy(branchVolumes, d_branchVolumes, sizeof(float)*nB, cudaMemcpyDeviceToHost));
 	float subcellvol = dxB*dyB*dzB / 100 / 100 / 100;
-	
+
 	float maxvol = 0;
 	for (int b = 0; b < nB; b++){
 		printf("vol[%i] = %1.2e  ", b, branchVolumes[b]);
@@ -1120,7 +1120,7 @@ int main(void){
 			printf("G: frame %i of %i, t = %e, CT = %s, ", frame, num_frames, t, time_string(timeFrame));
 			printf("AVG = %s\n", time_string(timeAvg));
 			//printf("TOT = %s\n", time_string(timeTotal));
-			
+
 			printf("Mover: %s, ", time_string(GPUtimer[0] / ((float)substep)));
 			printf("Fill: %s, ", time_string(GPUtimer[1] / ((float)substep)));
 			printf("Transfer: %s", time_string(GPUtimer[2] / ((float)substep)));
@@ -1137,7 +1137,7 @@ int main(void){
 			gpuErrchk(cudaMemcpy(gforceY3, dforceY3, sizeof(float)*nB, cudaMemcpyDeviceToHost));
 			gpuErrchk(cudaMemcpy(gforceZ3, dforceZ3, sizeof(float)*nB, cudaMemcpyDeviceToHost));
 			gpuErrchk(cudaMemcpy(pnum, d_pnum, sizeof(float)*nB, cudaMemcpyDeviceToHost));
-			
+
 			float FX1 = 0;
 			float FY1 = 0;
 			float FZ1 = 0;
@@ -1170,7 +1170,7 @@ int main(void){
 			printf("FZ3 = %e\n", FZ3);
 			printf("np = %i\n", pnumtot);
 			printf("vz_print = %e, rhovac = %e\n", vz_print, rhovac_print);
-			
+
 			frame++;
 			next_plot_time += WRITE_RATE;
 			//ZeroOutForceGPU <<< blocks, threads >>>(nB, dforceX, dforceY, dforceZ);
@@ -1217,7 +1217,7 @@ int main(void){
 			d_pnum, nB, dt, qom,
 			LX, LY,
 			cosphase, sinphase,
-			L, R1, R2, inv_thresh, qRPM, INTERACTION, timestep, dID); 
+			L, R1, R2, inv_thresh, qRPM, INTERACTION, timestep, dID);
 
 		gpuErrchk(cudaGetLastError()); gpuErrchk(cudaDeviceSynchronize());
 		cudaEventRecord(stop, 0); cudaEventSynchronize(stop); cudaEventElapsedTime(&GPUtime, start, stop);
@@ -1317,7 +1317,7 @@ int main(void){
 		cudaEventRecord(stop); cudaEventSynchronize(stop); cudaEventElapsedTime(&GPUtime, start, stop);
 		GPUtimer[4] += GPUtime*1e-3;
 		subflag = 0;
-		
+
 		// -- add new particles -- //
 #if AddPartGPU
 		cudaEventRecord(start);
@@ -1334,7 +1334,7 @@ int main(void){
 			boxdim.xl, boxdim.yl, boxdim.zl,
 			boxdim.xmin, boxdim.ymin, boxdim.zmin,
 			L, R1, R2);
-		
+
 		gpuErrchk(cudaGetLastError()); gpuErrchk(cudaDeviceSynchronize());
 		cudaEventRecord(stop); cudaEventSynchronize(stop); cudaEventElapsedTime(&GPUtime, start, stop);
 		GPUtimer[3] += GPUtime*1e-3;
@@ -1349,7 +1349,7 @@ int main(void){
 			//if (np_create > 0)printf("creating %i particles\n", np_create);
 			int n = 0;
 			while (n < np_create){
-				
+
 				float px = (float)rand() / (float)RAND_MAX * (boxdim.xl) + boxdim.xmin;
 				float py = (float)rand() / (float)RAND_MAX * (boxdim.yl) + boxdim.ymin;
 				float pz = (float)rand() / (float)RAND_MAX * (boxdim.zl) + boxdim.zmin;
@@ -2043,7 +2043,7 @@ int main(void){
 							Bcomsol.z = B_real[i][5] * cosphase + B_imag[i][5] * sinphase;
 
 
-							//printf("Eold[%i][5] = %e,  Enew[%i][5] = %e\n",i,Ecomsol.z,i, E_real[i][5]*cosphase + E_imag[i][5]*sinphase);
+							//printf("Eold[%i][5] = %e,  New[%i][5] = %e\n",i,Ecomsol.z,i, E_real[i][5]*cosphase + E_imag[i][5]*sinphase);
 
 							prt[n].aE.x = p_qom*Ecomsol.x;
 							prt[n].aE.y = p_qom*Ecomsol.y;
@@ -2301,7 +2301,7 @@ int main(void){
 									rij2 = drx*drx + dry*dry + drz*drz;
 
 									rij_s = pow(rij2, 0.5);
-									if (rij_s < thresh) { continue; }  // too close to infinite interaction, so skip this particle 
+									if (rij_s < thresh) { continue; }  // too close to infinite interaction, so skip this particle
 									rij_i = drx / rij_s;
 									rij_j = dry / rij_s;
 									rij_k = drz / rij_s;
@@ -2470,7 +2470,7 @@ int main(void){
 								r = rand() % 10;
 								t = (double)r / 9;
 								r = pow(-1.0, r);
-								t = t*(double)r; // can use this to also make magnitude random 
+								t = t*(double)r; // can use this to also make magnitude random
 
 								prt[n].v.x = Cell[prt[n].ECellX][prt[n].ECellY][prt[n].ECellZ].vx_avg*t;
 								prt[n].v.y = Cell[prt[n].ECellX][prt[n].ECellY][prt[n].ECellZ].vy_avg*t;
@@ -2669,5 +2669,5 @@ int main(void){
 	printf("Speedup = %4.8f\n", CPUtimeTotal / GPUtimeTotal);
 	cudaDeviceReset();
 #endif
-	
+
 }

@@ -13,7 +13,7 @@ void FillGapsCPU(
 		pnum[b] -= NumTransfer[b];		// decrease the particle count by the number of particles that were transferred
 		for (int n = 0; n < NumTransfer[b]; n++){	// loop through the number of particles that needed to be transferred
 			int na = TransferIndex[n];					// index of particle to be transferred
-			int transfer = 0;						// 
+			int transfer = 0;						//
 			while (transfer == 0 && replacer >= pnum[b]){	// while we haven't found a particle to fill the gap AND while we haven't finished by getting to the last particle in pnum
 				int replacer_mapped = b + replacer*nB;		// map the particle number "index" to the actual index in the particle array
 				if (TransferFlag[replacer_mapped] == 0 && na != replacer_mapped){
@@ -39,7 +39,7 @@ void FillGapsCPU(
 		//printf("NumKill[%i] = %i\n", b, NumKill[b]);
 		for (int n = 0; n < NumKill[b]; n++){	// loop through the number of particles that needed to be killed
 			int na = KillIndex[n];					// index of particle to be killed
-			int kill = 0;						// 
+			int kill = 0;						//
 			while (kill == 0 && replacer >= pnum[b]){	// while we haven't found a particle to fill the gap AND while we haven't finished by getting to the last particle in pnum
 				int replacer_mapped = b + replacer*nB;		// map the particle number "index" to the actual index in the particle array
 				if (KillFlag[replacer_mapped] == 0){

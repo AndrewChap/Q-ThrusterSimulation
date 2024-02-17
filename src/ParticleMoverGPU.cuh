@@ -108,7 +108,7 @@ __global__ void ParticleMoverGPU(
 					rij2i = 1 / (drx*drx + dry*dry + drz*drz);	// inverse square
 
 					rij_si = sqrtf(rij2i);					// inverse sqrt so we can use it for multiplication rather than division below
-					if (rij_si > inv_thresh) { continue; }		// too close to infinite interaction, so skip this particle 
+					if (rij_si > inv_thresh) { continue; }		// too close to infinite interaction, so skip this particle
 					rij_x = drx * rij_si;						// unit vector direction x
 					rij_y = dry * rij_si;						// unit vector direction y
 					rij_z = drz * rij_si;						// unit vector direction z
@@ -180,7 +180,7 @@ __global__ void ParticleMoverGPU(
 				//if (NumKill[b] > 0){
 				//printf("NumKill[%i] =  %i, px[%i] = %f, py[%i] = %f, pz[%i] = %f\n", b, NumKill[b],na,px[na],na,py[na],na,pz[na]);
 				//}
-				
+
 				if (px[na] < Bxmin[b] && Bxm[b] != -1 && KillFlag[na] == 0){
 					index = b + NumTransfer[b] * nB;		// destination index of this particle in the buffer arrays (pxBuffer, and any other array of size np_buffer)
 					DestinationsBuffer[index] = Bxm[b];		// the index of the branch to which this particle is being transferred
@@ -285,7 +285,7 @@ __global__ void ParticleMoverGPU(
 					index = b + NumTransfer[b] * nB;		// destination index of this particle in the buffer arrays (pxBuffer, and any other array of size np_buffer)
 					DestinationsBuffer[index] = Bzp[b];		// the index of the branch to which this particle is being transferred
 					//TransferIndex[NumTransfer[b]] = na;		// the index in np_branches stored into an array of size np_buffer, storing the original address for the values of arrays such as pxBuffer etc.  We use this so we dont have to loop through every particle during FillGaps to check for transfers
-					TransferIndex[index] = na; 
+					TransferIndex[index] = na;
 					TransferFlag[na] = 1;					// Transfer flag is of size np_branches (same size as px etc.) and just lets us know that this particle is being transferred to another cell and so should not be used to fill another gap
 					pxBuffer[index] = px[na];
 					pyBuffer[index] = py[na];
@@ -324,4 +324,3 @@ __global__ void ParticleMoverGPU(
 		b += blockDim.x*gridDim.x;
 	}	// end branch while
 }	// end function
-

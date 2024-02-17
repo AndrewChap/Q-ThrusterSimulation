@@ -25,10 +25,10 @@ end
 function plotForceCurveFile(file_path, title_text)
     lines = readlines(file_path)
     data = [parse_line(line) for line in lines]
-    
+
     # Convert the list of vectors into a matrix
     Amat = hcat(data...)'
-    
+
     # Extract columns for t, FZ1, FZ2, and FZ3
     t = Amat[:, 1]
     FZ1 = Amat[:, 4]
@@ -36,13 +36,13 @@ function plotForceCurveFile(file_path, title_text)
     FZ3 = Amat[:, 10]
     #println(length(t))
     #println(length(FZ1))
-    
+
     # Smooth FZ1 with a window size of 30
     FZ1smooth = movingaverage(FZ1, 30)
     #println(length(FZ1smooth))
-    
+
     # Plotting
-    plot(t, [FZ3 FZ2 FZ1 FZ1smooth], 
+    plot(t, [FZ3 FZ2 FZ1 FZ1smooth],
          label=["FZ3: Pressure Gradient Force" "FZ2: Separated Accel Force" "FZ1: Avg Accel Force" "FZ1s: Avg Accel Force (Smoothed)"],
          grid=true,
          xlabel="Time",
@@ -51,7 +51,7 @@ function plotForceCurveFile(file_path, title_text)
          xlims=MyXlim,
          ylims=MyYlim)
 end
-    
+
 file_path = "ForceCurveGPU2024_02_16__23_59_49.txt"
 corrected_file_path = "ForceCurveGPU2024_02_16__23_59_49.txt"
 before_plot = plotForceCurveFile(file_path, "Before Error Correction")

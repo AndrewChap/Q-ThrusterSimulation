@@ -135,7 +135,7 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 					lCell[cx][cy][cz].B2 = 0;
 					lCell[cx][cy][cz].RHO_B = 0;			// N/m^2
 					lCell[cx][cy][cz].RHO_VAC = 0;			// kg/m^3
-					lCell[cx][cy][cz].volume = 0;			// m^3					
+					lCell[cx][cy][cz].volume = 0;			// m^3
 					for (j = 0; j<8; j++) {
 						lCell[cx][cy][cz].CORNERS[j] = -1;
 						lCell[cx][cy][cz].FCORNERS[j] = 0;
@@ -146,7 +146,7 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 	}
 
 	if (flag == 0){
-		// determine intersection of vertices with COMSOL rows	
+		// determine intersection of vertices with COMSOL rows
 		for (cx = 0; cx < lcx; cx++) {
 			for (cy = 0; cy < lcy; cy++) {
 				for (cz = 0; cz < lcz; cz++) {
@@ -215,7 +215,7 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 										lCell[cx][cy][cz].FCORNERS[j] = 1;
 										lCell[cx][cy][cz].IN_FLAG = 1;
 										i = nr;
-										//printf ("here!\n");										
+										//printf ("here!\n");
 									}
 								}
 							}
@@ -252,8 +252,8 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 							}
 						}
 
-						//(technically all of the following checks are by definition edge pieces, but may need this code for the gradient algorithm, so can cut and paste 
-						// Check cubes on edge faces of simulation space 
+						//(technically all of the following checks are by definition edge pieces, but may need this code for the gradient algorithm, so can cut and paste
+						// Check cubes on edge faces of simulation space
 						//LEFT FACE
 						if (cx == 0 && cy != 0 && cz != 0 && cy != (lcy - 1) && cz != (lcz - 1)){
 							if (lCell[cx][cy][cz].IN_FLAG == 1 ||
@@ -347,7 +347,7 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 								lCell[cx][cy][cz].EDGE_FLAG = 1;
 							}
 						}
-						// ||Z-AXIS top right edge	
+						// ||Z-AXIS top right edge
 						if (cx == (lcx - 1) && cy == (lcy - 1) && cz != 0 && cz != (lcz - 1)){
 							if (lCell[cx][cy][cz].IN_FLAG == 1 ||
 								lCell[cx - 1][cy][cz].IN_FLAG == 0 ||
@@ -496,7 +496,7 @@ void SetupCell(CellStruct ***lCell, int lnp, int lcx, int lcy, int lcz, int flag
 						}
 
 
-						// Full volume 
+						// Full volume
 						if (lCell[cx][cy][cz].EDGE_FLAG != 1 && lCell[cx][cy][cz].IN_FLAG == 1) {
 							lCell[cx][cy][cz].volume = lGRIDL*lGRIDL*lGRIDL;
 						}

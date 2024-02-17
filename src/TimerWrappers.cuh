@@ -41,12 +41,12 @@ inline float timer(int func)
 	CPU_start = clock(); \
 	func; \
 	time += ((float)(clock() - CPU_start)) / CLOCKS_PER_SEC; \
-	/*printf("CPU kernel finished\n");*/ 
+	/*printf("CPU kernel finished\n");*/
 	/*printf("CPUtime = %6.10f ms\n", ((float)CPUtime)*1E3);*/
 
 /*#define TimerInitializeGPU	\
-	cudaEvent_t start, stop;	\	
-	cudaEventCreate(&start);  cudaEventCreate(&stop); 
+	cudaEvent_t start, stop;	\
+	cudaEventCreate(&start);  cudaEventCreate(&stop);
 	*/
 
 
@@ -97,7 +97,7 @@ clock_t startCPU;
 float CPUtime;
 startCPU = clock();
 
-// code 
+// code
 
 CPUtime = ((float)(clock() - startCPU)) / CLOCKS_PER_SEC;
 printf("CPU kernel finished\n");

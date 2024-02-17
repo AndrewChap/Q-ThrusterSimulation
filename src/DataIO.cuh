@@ -210,7 +210,7 @@ void *DataIOthread(void *arg_ptr){
 				np_check++;
 			}
 		}
-		
+
 
 		if (print_gots == 1){ printf("got 5.9\n"); }
 		fclose(vtk_out_p);

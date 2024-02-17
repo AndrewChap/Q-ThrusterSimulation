@@ -16,7 +16,7 @@ void WriteVTK(
 				int *pq,
 				int snowballsize
 				){
-	
+
 	static char timename[char_amount];
 	//static char codename[char_amount];
 	char foldername[char_amount];

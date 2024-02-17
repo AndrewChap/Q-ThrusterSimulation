@@ -30,7 +30,7 @@ __global__ void ThrustCalculationGPU(
 	){
 
 	float Ex, Ey, Ez, Bx, By, Bz;
-		
+
 	int b = threadIdx.x + blockDim.x * blockIdx.x;		// Branch number
 	//printf("transfer launched\n");
 	while (b < nB){

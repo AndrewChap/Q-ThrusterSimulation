@@ -42,7 +42,7 @@ __global__ void TransferParticlesGPU(
 			int writeAddress = DestinationsBuffer[readAddress] + (pnum_target) * nB;	// we are writing to an index that is after the last particle i.e. the pnum for that branch
 			//printf("DestinationsBuffer[%i] = %i, pnum[%i] = %i, writeAddress = %i\n",readAddress, DestinationsBuffer[readAddress], DestinationsBuffer[readAddress], pnum[DestinationsBuffer[readAddress]], writeAddress);
 			//if (writeAddress > np_branches){ printf("writeAddress = %i, b = %i, pnum[%i] = %i, readAddress = %i, DesBuf =[%i] = %i\n", writeAddress, b, DestinationsBuffer[readAddress], pnum[DestinationsBuffer[readAddress]], readAddress, DestinationsBuffer[readAddress]); }
-			
+
 			/*if (b == BC && DestinationsBuffer[readAddress] == BCt){
 				printf("T%i from B%i: overwrite px[%i] = %1.4f with px[%i] = %1.4f\n", i, b, writeAddress,px[writeAddress],readAddress,px[readAddress]);
 			}
@@ -50,7 +50,7 @@ __global__ void TransferParticlesGPU(
 			if (b == BC && (pq[writeAddress] != 0 || pqBuffer[readAddress] == 0)){
 				printf("ERR3-B: ts=%i, overwrite pq[%i] = %i with pqBuffer[%i] = %i\n", ts, writeAddress, pq[writeAddress], readAddress, pqBuffer[readAddress]);
 			}*/
-			
+
 			px[writeAddress] = pxBuffer[readAddress];
 			py[writeAddress] = pyBuffer[readAddress];
 			pz[writeAddress] = pzBuffer[readAddress];
