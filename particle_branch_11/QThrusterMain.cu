@@ -4,7 +4,6 @@
 #include <time.h>
 #include <malloc.h>
 #include <sys/stat.h>
-//#include <process.h>
 #include <curand.h>
 #include <curand_kernel.h>
 
@@ -1049,7 +1048,7 @@ int main(void){
 	gpuErrchk(cudaMalloc((void**)&d_np_remainder, nB*sizeof(float)));
 	for (int b = 0; b < nB; b++) g_np_remainder[b] = 2.0f*(float)rand() / (float)RAND_MAX;
 	cudaMemcpy(d_np_remainder, g_np_remainder, nB*sizeof(float), cudaMemcpyHostToDevice);
-	AddParticlesGPU_Initialize << <blocks, threads >> >(pdx_rand, pdy_rand, pdz_rand, vdx_rand, vdy_rand, vdz_rand, nB);
+	AddParticlesGPU_Initialize <<< blocks, threads >>>(pdx_rand, pdy_rand, pdz_rand, vdx_rand, vdy_rand, vdz_rand, nB);
 #endif
 
 	float *d_branchVolumes, *branchVolumes;				// volumes of each branch to be used for thrust calculations
@@ -1064,7 +1063,7 @@ int main(void){
 	gpuErrchk(cudaMalloc((void**)&d_rhovac, sizeof(float)*nB));
 	gpuErrchk(cudaMallocHost((void**)&h_rhovac, sizeof(float)*nB));
 
-	CalculateCellVolumesGPU << < blocks, threads >> >(d_branchVolumes, dBxmin, dBxmax, dBymin, dBymax, dBzmin, dBzmax, dxB, dyB, dzB, nB, 100, 100, 100, L, R1, R2);
+	CalculateCellVolumesGPU <<< blocks, threads >>>(d_branchVolumes, dBxmin, dBxmax, dBymin, dBymax, dBzmin, dBzmax, dxB, dyB, dzB, nB, 100, 100, 100, L, R1, R2);
 	gpuErrchk(cudaGetLastError()); gpuErrchk(cudaDeviceSynchronize());
 
 	gpuErrchk(cudaMemcpy(branchVolumes, d_branchVolumes, sizeof(float)*nB, cudaMemcpyDeviceToHost));
@@ -1165,7 +1164,7 @@ int main(void){
 			
 			frame++;
 			next_plot_time += WRITE_RATE;
-			//ZeroOutForceGPU << < blocks, threads >> >(nB, dforceX, dforceY, dforceZ);
+			//ZeroOutForceGPU <<< blocks, threads >>>(nB, dforceX, dforceY, dforceZ);
 			gpuErrchk(cudaGetLastError()); gpuErrchk(cudaDeviceSynchronize());
 
 
@@ -1180,7 +1179,7 @@ int main(void){
 
 		cudaEventRecord(start, 0);
 
-		ParticleMoverGPU << < blocks, threads >> >(
+		ParticleMoverGPU <<< blocks, threads >>>(
 			pdx, pdy, pdz,
 			vdx, vdy, vdz,
 			adx, ady, adz,
@@ -1216,7 +1215,7 @@ int main(void){
 		GPUtimer[0] += GPUtime*1e-3;
 
 		cudaEventRecord(start);
-		FillGapsGPU << < blocks, threads >> >(
+		FillGapsGPU <<< blocks, threads >>>(
 			pdx, pdy, pdz,
 			vdx, vdy, vdz,
 			adx, ady, adz,
@@ -1233,7 +1232,7 @@ int main(void){
 		GPUtimer[1] += GPUtime*1e-3;
 
 		cudaEventRecord(start);
-		TransferParticlesGPU << < blocks, threads >> >(
+		TransferParticlesGPU <<< blocks, threads >>>(
 			pdx, pdy, pdz,
 			vdx, vdy, vdz,
 			adx, ady, adz,
@@ -1253,7 +1252,7 @@ int main(void){
 		//printf("outsideTCkernel1\b");
 
 		cudaEventRecord(start);
-		ThrustCalculationGPU1 << < blocks, threads >> >(
+		ThrustCalculationGPU1 <<< blocks, threads >>>(
 			pdx, pdy, pdz,
 			vdx, vdy, vdz,
 			adx, ady, adz,
@@ -1294,7 +1293,7 @@ int main(void){
 		}
 		//printf("substep = %i\n", substep);
 		cudaEventRecord(start);
-		ThrustCalculationGPU2 << < blocks, threads >> >(
+		ThrustCalculationGPU2 <<< blocks, threads >>>(
 			dpressureX, dpressureY, dpressureZ,
 			daccelX1, daccelY1, daccelZ1,
 			daccelX2, daccelY2, daccelZ2,
@@ -1313,7 +1312,7 @@ int main(void){
 		// -- add new particles -- //
 #if AddPartGPU
 		cudaEventRecord(start);
-		AddParticlesGPU << < blocks, threads >> >(
+		AddParticlesGPU <<< blocks, threads >>>(
 			pdx, pdy, pdz,
 			vdx, vdy, vdz,
 			pdq,

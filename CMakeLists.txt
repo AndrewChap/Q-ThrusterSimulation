@@ -13,7 +13,6 @@ include_directories(
 
 # Define source and header files for the project
 set(SOURCE_FILES
-    ${PROJECT_SOURCE_DIR}/kernel.cu
     ${PROJECT_SOURCE_DIR}/QThrusterMain.cu
     # Add any .cpp files if necessary
 )
