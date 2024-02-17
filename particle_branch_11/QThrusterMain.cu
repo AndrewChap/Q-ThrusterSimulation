@@ -4,8 +4,7 @@
 #include <time.h>
 #include <malloc.h>
 #include <sys/stat.h>
-#include <windows.h>
-#include <process.h>
+//#include <process.h>
 #include <curand.h>
 #include <curand_kernel.h>
 

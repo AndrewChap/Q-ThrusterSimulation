@@ -4,7 +4,6 @@
 #include <time.h>
 #include <malloc.h>
 #include <sys/stat.h>
-#include <windows.h>
 
 /*
 #define gpuErrchk(ans) { gpuAssert((ans), __FILENAME__, __LINE__); }					// replace '__FILENAME__' with '__FILE__' if you want the full path

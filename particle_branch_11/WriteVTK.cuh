@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "OtherFunctions.cuh"
 
@@ -40,16 +41,25 @@ void WriteVTK(
 		sprintf(foldername + strlen(foldername), timename);
 		//sprintf(foldername + strlen(foldername), "%s", codename);
 		printf("\ncreating directory:\n%s\n", foldername);
-		CreateDirectory(foldername, NULL);
+	    mode_t mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH; // Equivalent to 0755
+        if (mkdir(foldername, mode) == -1) {
+            perror("mkdir foldername failed");
+        }
 
 
 		sprintf(dir_positrons, "%s/positrons", foldername);
 		sprintf(dir_electrons, "%s/electrons", foldername);
 		sprintf(dir_density, "%s/density", foldername);
-		CreateDirectory(dir_positrons, NULL);
-		CreateDirectory(dir_electrons, NULL);
-		CreateDirectory(dir_density, NULL);
 		printf("\ncreating directory:\n%s\n", dir_positrons);
+        if (mkdir(dir_positrons, mode) == -1) {
+            perror("mkdir positrons failed");
+        }
+        if (mkdir(dir_electrons, mode) == -1) {
+            perror("mkdir electrons failed");
+        }
+        if (mkdir(dir_density, mode) == -1) {
+            perror("mkdir density failed");
+        }
 	}
 
 

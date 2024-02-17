@@ -1,3 +1,4 @@
+#include <pthread.h>
 
 typedef struct {
 	int CUDA;			// 1 or 0 to let us know if the data is coming from the GPU or CPU
@@ -34,7 +35,7 @@ void DataIOinitialize(int WRITE_VTK, int np_buffer){
 	}
 }
 
-void DataIOthread(void *arg_ptr);
+void *DataIOthread(void *arg_ptr);
 
 void DataIO(int WRITE_VTK, int CUDA, int frame, int np_buffer, float *pdx, float *pdy, float *pdz, int *pdq){
 	if (WRITE_VTK){
@@ -58,11 +59,18 @@ void DataIO(int WRITE_VTK, int CUDA, int frame, int np_buffer, float *pdx, float
 		arg->py_pinned = pgy_pinned;
 		arg->pz_pinned = pgz_pinned;
 		arg->pq_pinned = pgq_pinned;
-		_beginthread(DataIOthread, 0, (void*)arg);	// do data transfer on separate thread
+        pthread_t thread;
+		int result = pthread_create(&thread, NULL, DataIOthread, (void*)arg);	// do data transfer on separate thread
+        if (result != 0) {
+            perror("Thread creation failed");
+        }
+
+        // Wait for the thread to finish
+        pthread_join(thread, NULL);
 	}
 }
 
-void DataIOthread(void *arg_ptr){
+void *DataIOthread(void *arg_ptr){
 
 	DataIOstruct *args = (DataIOstruct*)arg_ptr;
 	int frame = args->frame;
@@ -111,16 +119,29 @@ void DataIOthread(void *arg_ptr){
 		sprintf(foldername + strlen(foldername), timename);
 		//sprintf(foldername + strlen(foldername), "%s", codename);
 		printf("\ncreating directory:\n%s\n", foldername);
-		CreateDirectory(foldername, NULL);
 
+		mode_t mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH; // Equivalent to 0755
+        if (mkdir(foldername, mode) == -1) {
+            perror("mkdir failed");
+            return NULL;
+        }
 
 		sprintf(dir_positrons, "%s/positrons", foldername);
 		sprintf(dir_electrons, "%s/electrons", foldername);
 		sprintf(dir_density, "%s/density", foldername);
-		CreateDirectory(dir_positrons, NULL);
-		CreateDirectory(dir_electrons, NULL);
-		CreateDirectory(dir_density, NULL);
 		printf("\ncreating directory:\n%s\n", dir_positrons);
+        if (mkdir(dir_positrons, mode) == -1) {
+            perror("mkdir positrons failed");
+            return NULL;
+        }
+        if (mkdir(dir_electrons, mode) == -1) {
+            perror("mkdir electrons failed");
+            return NULL;
+        }
+        if (mkdir(dir_density, mode) == -1) {
+            perror("mkdir density failed");
+            return NULL;
+        }
 	}
 
 
@@ -198,7 +219,7 @@ void DataIOthread(void *arg_ptr){
 		if (print_gots == 1){ printf("got 5.10\n"); }
 	}
 	//free(args);
-	_endthread();
+	pthread_exit(NULL);
 }
 
 
@@ -228,6 +249,6 @@ void DataIO(void *DIO){
 	int outnumber = 1;// ((DataIOstruct*)(DIO)->frame);// +((DataIOstruct*)(DIO)->somenumber);
 	DIO.somenumber = 10;
 	printf("\nHELLO FROM THREAD frame# = %i\n", (DataIOstruct*)(DIO)->frame);
-	_endthread();
+	pthread_exit(NULL);
 
 }*/
