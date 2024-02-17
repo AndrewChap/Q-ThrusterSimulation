@@ -5,6 +5,9 @@ project(particle_branch_11 LANGUAGES CXX CUDA)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(PROJECT_SOURCE_DIR "src")
+#set(CMAKE_CUDA_COMPILER "/usr/local/cuda-12.3/bin/nvcc") # Change for your system: $ whereis nvcc
+# Set CUDA flags
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -lineinfo")
 
 include_directories(# Add CUDA toolkit include directories
                     ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
@@ -40,25 +43,25 @@ set(HEADER_FILES
 # Add executable target with source and header files
 add_executable(particle_branch_11 ${SOURCE_FILES} ${HEADER_FILES})
 
-# find_package(CUDA 7.5 REQUIRED)
-
 # Specify include directories
 include_directories(
-  # Specify the directories where the compiler can find headers Example:
-  # "${PROJECT_SOURCE_DIR}/include"
-  "${PROJECT_SOURCE_DIR}"
+  "${PROJECT_SOURCE_DIR}/include"
 )
 
 # Find CUDA
-find_package(CUDA 10.0 REQUIRED) # Adjust based on your CUDA version
+#find_package(CUDA 10.0 REQUIRED) # Adjust based on your CUDA version
 
 # Link CUDA libraries
 target_link_libraries(particle_branch_11 ${CUDA_LIBRARIES}
                       ${CUDA_CUDART_LIBRARY})
 
 # Specify additional options for the CUDA compiler
-set_target_properties(particle_branch_11 PROPERTIES CUDA_SEPARABLE_COMPILATION
-                                                    ON)
+set_target_properties(particle_branch_11 PROPERTIES 
+                      CUDA_SEPARABLE_COMPILATION ON
+                     )
+
+# Set CUDA specific options
+#target_compile_options(particle_branch_11 PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-lineinfo>)
 
 # Copy the configuration text file to the build directory
 configure_file(${PROJECT_SOURCE_DIR}/input_deck_2_7.txt
