@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include "OtherFunctions.cuh"
-
 #define char_amount			100
 char forcefilename[char_amount];	// positron data
 

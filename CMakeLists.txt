@@ -15,26 +15,27 @@ set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/QThrusterMain.cu
 )
 
 set(HEADER_FILES
-    ${PROJECT_SOURCE_DIR}/AddParticlesGPU.cuh
-    ${PROJECT_SOURCE_DIR}/BoxConeCollider.cuh
-    ${PROJECT_SOURCE_DIR}/CalculateCellVolumesGPU.cuh
-    ${PROJECT_SOURCE_DIR}/DataIO.cuh
-    ${PROJECT_SOURCE_DIR}/FillGapsCPU.cuh
-    ${PROJECT_SOURCE_DIR}/FillGapsGPU.cuh
-    ${PROJECT_SOURCE_DIR}/gpuErrchk.cuh
-    ${PROJECT_SOURCE_DIR}/Load_EB.cuh
-    ${PROJECT_SOURCE_DIR}/OtherFunctions.cuh
-    ${PROJECT_SOURCE_DIR}/ParticleMoverCPU.cuh
-    ${PROJECT_SOURCE_DIR}/ParticleMoverGPU.cuh
-    ${PROJECT_SOURCE_DIR}/ThrustCalculationGPU.cuh
-    ${PROJECT_SOURCE_DIR}/ThrustCalculationGPU1.cuh
-    ${PROJECT_SOURCE_DIR}/ThrustCalculationGPU2.cuh
-    ${PROJECT_SOURCE_DIR}/TimerWrappers.cuh
-    ${PROJECT_SOURCE_DIR}/TransferParticlesCPU.cuh
-    ${PROJECT_SOURCE_DIR}/TransferParticlesGPU.cuh
-    ${PROJECT_SOURCE_DIR}/WriteForce.cuh
-    ${PROJECT_SOURCE_DIR}/WriteToSnowballGPU.cuh
-    ${PROJECT_SOURCE_DIR}/WriteVTK.cuh)
+    ${PROJECT_SOURCE_DIR}/include/AddParticlesGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/BoxConeCollider.cuh
+    ${PROJECT_SOURCE_DIR}/include/CalculateCellVolumesGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/DataIO.cuh
+    ${PROJECT_SOURCE_DIR}/include/FillGapsCPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/FillGapsGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/gpuErrchk.cuh
+    ${PROJECT_SOURCE_DIR}/include/Load_EB.cuh
+    ${PROJECT_SOURCE_DIR}/include/OtherFunctions.cuh
+    ${PROJECT_SOURCE_DIR}/include/ParticleMoverCPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/ParticleMoverGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/ThrustCalculationGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/ThrustCalculationGPU1.cuh
+    ${PROJECT_SOURCE_DIR}/include/ThrustCalculationGPU2.cuh
+    ${PROJECT_SOURCE_DIR}/include/TimerWrappers.cuh
+    ${PROJECT_SOURCE_DIR}/include/TransferParticlesCPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/TransferParticlesGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/WriteForce.cuh
+    ${PROJECT_SOURCE_DIR}/include/WriteToSnowballGPU.cuh
+    ${PROJECT_SOURCE_DIR}/include/WriteVTK.cuh
+)
 
 # Add executable target with source and header files
 add_executable(particle_branch_11 ${SOURCE_FILES} ${HEADER_FILES})
@@ -45,7 +46,8 @@ add_executable(particle_branch_11 ${SOURCE_FILES} ${HEADER_FILES})
 include_directories(
   # Specify the directories where the compiler can find headers Example:
   # "${PROJECT_SOURCE_DIR}/include"
-  "${PROJECT_SOURCE_DIR}")
+  "${PROJECT_SOURCE_DIR}"
+)
 
 # Find CUDA
 find_package(CUDA 10.0 REQUIRED) # Adjust based on your CUDA version

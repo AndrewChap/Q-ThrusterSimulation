@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include "OtherFunctions.cuh"
+#include "include/OtherFunctions.cuh"
 
 #define char_amount			100
 

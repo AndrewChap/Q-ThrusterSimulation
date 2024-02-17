@@ -44,7 +44,7 @@ PenaltyExcessCharacter: 50
 PenaltyBreakBeforeFirstCallParameter: 30
 PenaltyBreakComment: 1000
 PenaltyBreakFirstLessLess: 10
-PenaltyBreakString: 100
+PenaltyBreakString: 111
 PenaltyReturnTypeOnItsOwnLine: 50
 
 SpacesBeforeTrailingComments: 2
