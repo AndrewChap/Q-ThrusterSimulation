@@ -53,5 +53,25 @@ This has been tested on Linux (Debian 11 with an Nvidia).
   (Need to have GPUrun enabled for this to work.)
   - performance:
 
+## Code Outline
+-- QThrusterMain.cu
+-  - Defines macro constants (like CPUrun, toggling if particles are created on CPU or GPU, etc)
+-  - Defines physical constants, like pi
+-  - Create E&B Fields:
+-    - Loads `input_deck_2_7.txt`, a COMSOL file. See H. White 'Anomalous Thrust Production from an RF Test Device Measured on a Low-Thrust Torsion Pendulum' for the COMSOL details on this experiment.
+-    - Reads the electric field file's array's rows and col's, and other COMSOL consts internally from the file.
+-    - Uses `EB_LOAD.cuh` to load the `complex/b_real.txt` `complex/a_imag.txt` etc field files to arrays.
+-    - Then starts calculating lagrangian packet parameters like real particles per macroparticle, calculates Cone (E-M cavity shape) geometry and those parameters.
+-  - Original CPU Calculation:
+-    - Defined last in `QThrusterMain.cu`, unoptimized CPU calculations.
+-    - Original derivation, doesn't currently work.
+-  - CPU:
+-    - Modern CPU kernel is then defined if not using GPU. See "Compilation Modes"
+-    - Manually creates electrons/positrons as normal, but can see a little clearer than in the GPU, but with optimizations.
+-  - GPU:
+-    - Starts managing branches as outlined in the QThrusterMemoryOrganization.pptx, transfers particles to GPU, or can create them on GPU.
+-    - ThrustCalculationGPU 1-3 are then called, along with the rest of te sim (ParticleMoverGPU, TransferParticlesGPU, ThrustCalculations, etc).
+-    - GPU memory is then freed, and some statistics are shown.
+
 # License
 MIT
